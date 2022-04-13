@@ -5,19 +5,25 @@ jobs:
                 name: deploy to cluster
                 runs-on: ubuntu-20.04
                 steps:
-                        - uses: actions/checkout@master
-                        - name: login to dockerhub
+                        - 
+                          uses: actions/checkout@master
+                        - 
+                          name: set up Docker buildx
+                          uses: docker/setup-buildx-action@v1
+                        - 
+                          name: login to dockerhub
                           uses: docker/login-action@v1
                           with:
                                   username: ${{ secrets.DOCKER_USERNAME }}
                                   password: ${{ secrets.DOCKER_PASSWORD }}
-                        - name: build and push to docker
+                        - 
+                          name: build and push to docker
                           uses: docker/build-push-action@v2
                           with: # acciones del step docker build-push-action
                                   push: true
-                                  repository: ${{ github.repository }}
-                                  tag_with_ref: true
-                                  tag_with_sha: true
+                                  # repository: ${{ github.repository }}
+                                  # tag_with_ref: true
+                                  # tag_with_sha: true
                                   tags: user/${{ github.sha }}
                                   #                        - name: deploy to cluster
                                   #                          uses: steebchen/kubectl@master
